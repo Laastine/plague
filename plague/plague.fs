@@ -6,7 +6,7 @@ open LogAgent
 let worldX = 30
 let worldY = 60
 
-let initialPlayerPos = (5,5)
+let initialPlayerPos = (5, 10)
 
 let initWorldArray = Array2D.init worldX worldY (fun x y -> ".")
 
@@ -19,15 +19,33 @@ let renderWorld(world, playerPos) =
     then printfn "%s" idx
     else printf "%s" idx) world
 
+let isLegalMove(input: int, isVerticalAxel: bool): bool =
+  let i = input+1
+  if isVerticalAxel then i > 0 && i <= worldY
+  else i > 0 && i <= worldX
 
 let movementInput(keyChar: char, playerPos: int * int) =
+  let (posX, posY) = playerPos
   match keyChar with
-    | 'w' -> ((fst playerPos)-1, (snd playerPos))
-    | 's' -> ((fst playerPos)+1, (snd playerPos))
-    | 'a' -> ((fst playerPos), (snd playerPos)-1)
-    | 'd' -> ((fst playerPos), (snd playerPos)+1)
-    | 'q' -> exit(0)
-    | _ -> ((fst playerPos), (snd playerPos))
+    | 'a' ->
+              if isLegalMove((posY-1), true) then (posX, (posY-1))
+              else playerPos
+    | 'd' ->
+              if isLegalMove((posY+1), true) then ((posX), (posY+1))
+              else playerPos
+    | 'w' ->
+              if isLegalMove(posX-1, false) then ((posX-1), posY)
+              else playerPos
+    | 's' ->
+              if isLegalMove(posX+1, false) then ((posX+1), (posY))
+              else playerPos
+    | 'q' ->
+            logger.info "Exit Plague"
+            logger.close()
+            exit(0)
+    | _ ->
+            logger.info "Unknown key pressed"
+            ((fst playerPos), (snd playerPos))
 
 let render(initWorldArray, playerPos: int*int) =
   System.Console.Clear()
