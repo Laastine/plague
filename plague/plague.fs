@@ -1,6 +1,7 @@
 module plague
 
 open System
+open LogAgent
 
 let worldX = 30
 let worldY = 60
@@ -8,6 +9,8 @@ let worldY = 60
 let initialPlayerPos = (5,5)
 
 let initWorldArray = Array2D.init worldX worldY (fun x y -> ".")
+
+let logger = new LogAgent(@"./log.txt")
 
 let renderWorld(world, playerPos) =
   Array2D.mapi (fun x y idx ->
@@ -32,12 +35,15 @@ let render(initWorldArray, playerPos: int*int) =
 
 let rec inputHandler playerPos =
   render(initWorldArray, playerPos)
-  let key = Console.ReadKey()
-  let newPlayerPos = movementInput(key.KeyChar, playerPos)
+  let key = Console.ReadKey().KeyChar
+  logger.info (sprintf "Key: %c" key)
+  let newPlayerPos = movementInput(key, playerPos)
   render(initWorldArray, newPlayerPos)
+  logger.flush()
   inputHandler newPlayerPos
 
 [<EntryPoint>]
 let main argv =
+  logger.info "Plague started"
   inputHandler initialPlayerPos
   0
