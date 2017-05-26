@@ -1,0 +1,129 @@
+NUGET
+  remote: https://www.nuget.org/api/v2
+    FAKE (4.61.2)
+    Microsoft.NETCore.Platforms (1.1) - restriction: || (&& (< net45) (< netstandard12) (>= netstandard13) (< win8)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (&& (< net46) (>= netstandard13)) (&& (>= dnxcore50) (>= netstandard13)) (&& (>= dnxcore50) (>= netstandard15)) (>= netcore11)
+    Microsoft.NETCore.Targets (1.1) - restriction: || (&& (< net45) (< netstandard12) (>= netstandard13) (< win8)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (&& (< net46) (>= netstandard13)) (&& (>= dnxcore50) (>= netstandard13)) (&& (>= dnxcore50) (>= netstandard15)) (>= netcore11)
+    runtime.any.System.IO (4.3) - isRuntimeDependency: true
+    runtime.any.System.Runtime (4.3) - isRuntimeDependency: true
+      System.Private.Uri (>= 4.3) - restriction: || (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+    runtime.any.System.Text.Encoding (4.3) - isRuntimeDependency: true
+    runtime.any.System.Threading.Tasks (4.3) - isRuntimeDependency: true
+    runtime.aot.System.IO (4.3) - isRuntimeDependency: true
+      System.Diagnostics.Debug (>= 4.3) - restriction: >= netstandard13
+      System.Globalization (>= 4.3) - restriction: || (>= dnxcore50) (>= netstandard13)
+      System.Runtime (>= 4.3) - restriction: || (>= dnxcore50) (>= netstandard13)
+      System.Runtime.Extensions (>= 4.3) - restriction: >= netstandard13
+      System.Text.Encoding (>= 4.3) - restriction: || (>= dnxcore50) (>= netstandard13)
+      System.Text.Encoding.Extensions (>= 4.3) - restriction: || (>= dnxcore50) (>= netstandard13)
+      System.Threading (>= 4.3) - restriction: || (>= dnxcore50) (>= netstandard13)
+      System.Threading.Tasks (>= 4.3) - restriction: || (>= dnxcore50) (>= netstandard13)
+    runtime.aot.System.Runtime (4.3) - isRuntimeDependency: true
+      System.Private.Uri (>= 4.3) - restriction: >= dnxcore50
+    runtime.aot.System.Text.Encoding (4.3) - isRuntimeDependency: true
+    runtime.aot.System.Threading.Tasks (4.3) - isRuntimeDependency: true
+    runtime.native.System (4.3) - restriction: >= netstandard13, isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1)
+      Microsoft.NETCore.Targets (>= 1.1)
+    runtime.unix.System.Console (4.3) - isRuntimeDependency: true
+      runtime.native.System (>= 4.3) - restriction: >= netstandard13
+      System.Collections (>= 4.3) - restriction: >= netstandard13
+      System.IO (>= 4.3) - restriction: >= netstandard13
+      System.IO.FileSystem.Primitives (>= 4.3) - restriction: >= netstandard13
+      System.Resources.ResourceManager (>= 4.3) - restriction: >= netstandard13
+      System.Runtime (>= 4.3) - restriction: >= netstandard13
+      System.Runtime.Extensions (>= 4.3) - restriction: >= netstandard13
+      System.Runtime.Handles (>= 4.3) - restriction: >= netstandard13
+      System.Runtime.InteropServices (>= 4.3) - restriction: >= netstandard13
+      System.Text.Encoding (>= 4.3) - restriction: >= netstandard13
+      System.Text.Encoding.Extensions (>= 4.3) - restriction: >= netstandard13
+      System.Threading (>= 4.3) - restriction: >= netstandard13
+      System.Threading.Tasks (>= 4.3) - restriction: >= netstandard13
+    runtime.win.System.Console (4.3) - isRuntimeDependency: true
+      System.IO (>= 4.3) - restriction: || (&& (< net20) (>= netstandard13)) (>= dnxcore50)
+      System.IO.FileSystem.Primitives (>= 4.3) - restriction: || (&& (< net20) (>= netstandard13)) (>= dnxcore50)
+      System.Resources.ResourceManager (>= 4.3) - restriction: || (&& (< net20) (>= netstandard13)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net20) (>= netstandard13)) (>= dnxcore50)
+      System.Runtime.InteropServices (>= 4.3) - restriction: && (< net20) (>= netstandard13)
+      System.Text.Encoding (>= 4.3) - restriction: || (&& (< net20) (>= netstandard13)) (>= dnxcore50)
+      System.Text.Encoding.Extensions (>= 4.3) - restriction: || (&& (< net20) (>= netstandard13)) (>= dnxcore50)
+      System.Threading (>= 4.3) - restriction: || (&& (< net20) (>= netstandard13)) (>= dnxcore50)
+      System.Threading.Tasks (>= 4.3) - restriction: || (&& (< net20) (>= netstandard13)) (>= dnxcore50)
+    System.Collections (4.3) - restriction: >= netstandard13, isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+    System.Console (4.3)
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: && (< net46) (>= netstandard13)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: && (< net46) (>= netstandard13)
+      System.IO (>= 4.3) - restriction: && (< net46) (>= netstandard13)
+      System.Runtime (>= 4.3) - restriction: && (< net46) (>= netstandard13)
+      System.Text.Encoding (>= 4.3) - restriction: && (< net46) (>= netstandard13)
+    System.Diagnostics.Debug (4.3) - restriction: >= netstandard13, isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+    System.Globalization (4.3) - restriction: || (>= dnxcore50) (>= netstandard13), isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+    System.IO (4.3) - restriction: || (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (&& (< net46) (>= netstandard13)) (&& (>= dnxcore50) (>= netstandard13)) (&& (>= dnxcore50) (>= netstandard15))
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+      System.Text.Encoding (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+      System.Threading.Tasks (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+    System.IO.FileSystem.Primitives (4.3) - restriction: || (>= dnxcore50) (>= netstandard13), isRuntimeDependency: true
+      System.Runtime (>= 4.3) - restriction: && (< net46) (>= netstandard13)
+    System.Private.Uri (4.3) - restriction: || (&& (< net45) (>= netstandard15)) (>= dnxcore50), isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1)
+      Microsoft.NETCore.Targets (>= 1.1)
+    System.Reflection (4.3) - restriction: || (&& (< net45) (< netstandard12) (>= netstandard13) (< win8)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (&& (>= dnxcore50) (>= netstandard13)) (>= netcore11), isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+      System.IO (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+      System.Reflection.Primitives (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+    System.Reflection.Primitives (4.3) - restriction: || (&& (< net45) (< netstandard12) (>= netstandard13) (< win8)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (&& (>= dnxcore50) (>= netstandard13)) (&& (>= dnxcore50) (>= netstandard15)) (>= netcore11), isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< win8) (< wp8) (< wpa81)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< win8) (< wp8) (< wpa81)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< win8) (< wp8) (< wpa81)) (>= dnxcore50)
+    System.Resources.ResourceManager (4.3) - restriction: || (>= dnxcore50) (>= netstandard13), isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< win8) (< wp8) (< wpa81)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< win8) (< wp8) (< wpa81)) (>= dnxcore50)
+      System.Globalization (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< win8) (< wp8) (< wpa81)) (>= dnxcore50)
+      System.Reflection (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< win8) (< wp8) (< wpa81)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< win8) (< wp8) (< wpa81)) (>= dnxcore50)
+    System.Runtime (4.3) - restriction: || (&& (< net45) (>= net462)) (&& (< net45) (< netstandard12) (>= netstandard13) (< win8)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (&& (< net46) (>= net462)) (&& (< net46) (>= netstandard13)) (&& (>= net462) (>= dnxcore50)) (&& (>= dnxcore50) (>= netstandard13)) (&& (>= dnxcore50) (>= netstandard15)) (>= netcore11)
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard12) (< win8) (< wp8)) (&& (< net45) (>= netstandard12) (< netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard12) (< win8) (< wp8)) (&& (< net45) (>= netstandard12) (< netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+    System.Runtime.Extensions (4.3) - restriction: >= netstandard13, isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50)
+    System.Runtime.Handles (4.3) - restriction: || (&& (< net45) (>= netstandard15)) (>= netstandard13), isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: && (< net46) (>= netstandard13)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: && (< net46) (>= netstandard13)
+      System.Runtime (>= 4.3) - restriction: && (< net46) (>= netstandard13)
+    System.Runtime.InteropServices (4.3) - restriction: >= netstandard13, isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard11) (< netstandard12) (< win8)) (&& (< net45) (>= netstandard12) (< netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50) (>= netcore11)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard11) (< netstandard12) (< win8)) (&& (< net45) (>= netstandard12) (< netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50) (>= netcore11)
+      System.Reflection (>= 4.3) - restriction: || (&& (< net45) (>= netstandard11) (< netstandard12) (< win8)) (&& (< net45) (>= netstandard12) (< netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50) (>= netcore11)
+      System.Reflection.Primitives (>= 4.3) - restriction: || (&& (< net45) (>= netstandard11) (< netstandard12) (< win8)) (&& (< net45) (>= netstandard12) (< netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50) (>= netcore11)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard11) (< netstandard12) (< win8)) (&& (< net45) (>= netstandard12) (< netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= net462) (>= dnxcore50) (>= netcore11)
+      System.Runtime.Handles (>= 4.3) - restriction: || (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (>= dnxcore50) (>= netcore11)
+    System.Text.Encoding (4.3) - restriction: || (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (&& (< net46) (>= netstandard13)) (&& (>= dnxcore50) (>= netstandard13)) (&& (>= dnxcore50) (>= netstandard15))
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+    System.Text.Encoding.Extensions (4.3) - restriction: || (>= dnxcore50) (>= netstandard13), isRuntimeDependency: true
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      System.Text.Encoding (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+    System.Threading (4.3) - restriction: || (>= dnxcore50) (>= netstandard13), isRuntimeDependency: true
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      System.Threading.Tasks (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+    System.Threading.Tasks (4.3) - restriction: || (&& (< net20) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net20) (>= netstandard15)) (&& (< net45) (>= netstandard13) (< netstandard15) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15)) (&& (>= dnxcore50) (>= netstandard13)) (&& (>= dnxcore50) (>= netstandard15))
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
+      System.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard13) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard13) (< win8) (< wpa81)) (>= dnxcore50)
