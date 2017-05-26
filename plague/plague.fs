@@ -1,23 +1,25 @@
-module plague
+module Plague
 
 open System
 open LogAgent
+open Node
 
 let worldX = 30
 let worldY = 60
 
 let initialPlayerPos = (5, 10)
 
-let initWorldArray = Array2D.init worldX worldY (fun x y -> ".")
+let initWorldArray = Array2D.init worldX worldY (fun x y -> new Node((x,y), ".", true))
 
 let logger = new LogAgent(@"./log.txt")
 
-let renderWorld(world, playerPos) =
-  Array2D.mapi (fun x y idx ->
-    if x = (fst playerPos) && y = (snd playerPos)
-    then printf "@" elif (y+1) % worldY = 0
-    then printfn "%s" idx
-    else printf "%s" idx) world
+let renderWorld(world: Node[,], playerPos: int*int) =
+  world
+    |> Array2D.mapi (fun x y idx ->
+      if x = (fst playerPos) && y = (snd playerPos)
+      then printf "@" elif (y+1) % worldY = 0
+      then printfn "%s" idx.value
+      else printf "%s" idx.value)
 
 let isLegalMove(input: int, isVerticalAxel: bool): bool =
   let i = input+1

@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="logger.fs" />
+    <Compile Include="node.fs" />
     <Compile Include="plague.fs" />
     <None Include="App.config" />
   </ItemGroup>
