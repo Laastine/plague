@@ -16,6 +16,7 @@ let renderWorld(world, playerPos) =
     then printfn "%s" idx
     else printf "%s" idx) world
 
+
 let movementInput(keyChar: char, playerPos: int * int) =
   match keyChar with
     | 'w' -> ((fst playerPos)-1, (snd playerPos))
@@ -31,11 +32,10 @@ let render(initWorldArray, playerPos: int*int) =
 
 let rec inputHandler playerPos =
   render(initWorldArray, playerPos)
-  match Console.ReadKey() with
-  | s ->
-     let newPlayerPos = movementInput(s.KeyChar, playerPos)
-     render(initWorldArray, newPlayerPos)
-     inputHandler newPlayerPos
+  let key = Console.ReadKey()
+  let newPlayerPos = movementInput(key.KeyChar, playerPos)
+  render(initWorldArray, newPlayerPos)
+  inputHandler newPlayerPos
 
 [<EntryPoint>]
 let main argv =
