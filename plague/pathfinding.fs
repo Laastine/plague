@@ -4,6 +4,8 @@ open Logger
 open Config
 open Node
 
+let isSamePos(x: int, y: int, playerPos: int*int): bool = x = (fst playerPos) && y = (snd playerPos)
+
 let isWall(intendedMove: int*int, world: Node[,]): bool =
   let node = Array2D.get world (fst intendedMove) (snd intendedMove)
   node.isPassable
@@ -15,7 +17,7 @@ let distance(a: int*int, b: int*int): int*int =
   let distY = abs (ay - by)
   (distX, distY)
 
-let pythogora(a: int*int, b: int*int): float =
+let pythagora(a: int*int, b: int*int): float =
   let (ax, ay) = a
   let (bx, by) = b
   let xExp = float(pown (ax - bx) 2)

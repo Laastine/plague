@@ -6,8 +6,9 @@ open Config
 open Logger
 open Node
 open Movement
+open Pathfinding
 
-let createHouse(posX: int , posY: int, size: int) (world: Node[,]: Node[,]) =
+let createHouse(posX: int , posY: int, size: int)(world: Node[,]: Node[,]) =
   let lowerX = posX - 1
   let upperX = posX + size
 
@@ -21,6 +22,12 @@ let createHouse(posX: int , posY: int, size: int) (world: Node[,]: Node[,]) =
     else Array2D.get world x y
   ) world
 
+let createPond(posX: int, posY: int, size: int)(world: Node[,]: Node[,]) =
+  let isWithinCircle(x,y) = pythagora(distance((posX, posY), (x,y)), (x,y)) <= float (size)
+  Array2D.mapi(fun x y i ->
+                if isWithinCircle(x,y) then Node((x,y), setColorizedText("~", Color.ColorBlue), false)
+                else Array2D.get world x y) world
+
 let initWorldArray =
   let world = Array2D.init worldY worldX (fun x y -> Node((x,y), setColorizedText(".", Color.ColorGreen), true))
   world
@@ -28,11 +35,11 @@ let initWorldArray =
     |> (fun h -> (createHouse(5, 5, 4)(h)))
     |> (fun h -> (createHouse(25, 25, 4)(h)))
     |> (fun h -> (createHouse(7, 35, 6)(h)))
+    |> (fun w -> (createPond(42, 15, 8)(w)))
 
 let renderWorld(world: Node[,], playerPos: int*int) =
   System.Console.Clear()
   let isEdge(y: int): bool = (y+1) % worldX = 0
-  let isSamePos(x: int, y: int, playerPos: int*int): bool = x = (fst playerPos) && y = (snd playerPos)
   world
     |> Array2D.mapi (fun x y idx ->
       if isSamePos(x, y, playerPos) && isEdge(y) then printfn "@"
