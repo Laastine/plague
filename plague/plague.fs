@@ -7,21 +7,27 @@ open LogAgent
 open Node
 open Movement
 
-let initWorldArray(posX: int, posY: int, size: int): Node[,] =
+let createHouse(posX: int , posY: int, size: int) (world: Node[,]) =
   let lowerX = posX - 1
   let upperX = posX + size
 
   let lowerY = posY - 1
   let upperY = posY + size
 
-  Array2D.init worldY worldX (fun x y -> Node((x,y), ".", true))
-    |> Array2D.mapi( fun x y idx ->
+  Array2D.mapi( fun x y idx ->
     if x = lowerX && (y >= lowerY && y <= upperY) then Node((x,y), "#", false)
     elif x = upperX && (y >= lowerY && y <> (lowerY + 2) && y <= upperY) then Node((x,y), "#", false)
     elif (x >= lowerX && x <= upperX) && (y = lowerY || y = upperY) then Node((x,y), "#", false)
-    else Node((x,y), ".", true))
+    else Array2D.get world x y
+  ) world
 
-let worldArray = initWorldArray(4, 4, 5)
+let initWorldArray =
+  let world = Array2D.init worldY worldX (fun x y -> Node((x,y), ".", true))
+  world
+    |> (fun x -> (createHouse(15, 15, 2)(x)))
+    |> (fun x -> (createHouse(5, 5, 4)(x)))
+    |> (fun x -> (createHouse(25, 25, 4)(x)))
+    |> (fun x -> (createHouse(7, 35, 6)(x)))
 
 let renderWorld(world: Node[,], playerPos: int*int) =
   world
@@ -36,11 +42,11 @@ let render(initWorldArray, playerPos: int*int) =
   renderWorld(initWorldArray, playerPos) |> ignore
 
 let rec inputHandler(playerPos: int*int) =
-  render(worldArray, playerPos)
+  render(initWorldArray, playerPos)
   let key = Console.ReadKey().KeyChar
   logger.info (sprintf "Key: %c" key)
-  let newPlayerPos = movementInput(key, playerPos, worldArray)
-  render(worldArray, newPlayerPos)
+  let newPlayerPos = movementInput(key, playerPos, initWorldArray)
+  render(initWorldArray, newPlayerPos)
   logger.flush()
   inputHandler newPlayerPos
 
