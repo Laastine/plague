@@ -5,6 +5,8 @@ let worldY = 30
 
 let initialPlayerPos = (10, 20)
 
+let monsterPos = (1,1)
+
 [<AbstractClass; Sealed>]
 type Color =
   static member ColorRed = "\x1b[31m"

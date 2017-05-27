@@ -35,3 +35,8 @@ let movementInput(keyChar: char, playerPos: int * int, world: Node[,]): int*int 
     | _ ->
             logger.info "Unknown key pressed"
             ((fst playerPos), (snd playerPos))
+
+let moveMonster(playerPos: int * int, monsterPos: int*int, world: Node[,]): int*int =
+  let path = shortestPath(monsterPos, playerPos, world)
+  if path |> List.isEmpty then monsterPos
+  else path |> List.head
