@@ -12,7 +12,7 @@ let isWall(intendedMove: int*int, world: Node[,]): bool =
   let node = Array2D.get world (fst intendedMove) (snd intendedMove)
   node.isPassable
 
-let movementInput(keyChar: char, playerPos: int * int, world: Node[,]) =
+let movementInput(keyChar: char, playerPos: int * int, world: Node[,]): int*int =
   let (posX, posY) = playerPos
   match keyChar with
     | 'a' ->
