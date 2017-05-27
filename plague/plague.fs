@@ -1,13 +1,11 @@
 module Plague
 
 open System
+
+open Config
 open LogAgent
 open Node
-
-let worldX = 60
-let worldY = 30
-
-let initialPlayerPos = (28, 58)
+open Movement
 
 let createHouse(posX:int , posY:int, size: int, world: Node[,]) =
   
@@ -26,8 +24,6 @@ let createHouse(posX:int , posY:int, size: int, world: Node[,]) =
 
 let initWorldArray = 
   createHouse(3, 3, 5, Array2D.init worldY worldX (fun x y -> new Node((x,y), ".", true)))
-
-let logger = new LogAgent(@"./log.txt")
 
 let renderWorld(world: Node[,], playerPos: int*int) =
   world

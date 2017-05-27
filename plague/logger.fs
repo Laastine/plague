@@ -61,3 +61,6 @@ type LogAgent(logFile:string) as this  =
 
   member this.flush() = LogCommand.Flush |> agent.Post
   member this.close() = LogCommand.Close |> agent.PostAndReply
+
+let logger = new LogAgent(@"./log.txt")
+
