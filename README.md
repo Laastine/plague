@@ -11,7 +11,7 @@ ASCII roguelike written in F#. Nothing interesting to see here yet.
 - [ ] Diagonal movement
 - [ ] Dynamic world
 - [ ] Critters
-- [ ] Path finding
+- [x] Path finding
 - [ ] Line of sight
 
 ## Requirements
