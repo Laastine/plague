@@ -53,7 +53,7 @@ let render(initWorldArray, playerPos: int*int) =
   System.Console.Clear()
   renderWorld(initWorldArray, playerPos) |> ignore
 
-let rec inputHandler playerPos =
+let rec inputHandler(playerPos: int*int) =
   render(initWorldArray, playerPos)
   let key = Console.ReadKey().KeyChar
   logger.info (sprintf "Key: %c" key)
