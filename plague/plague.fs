@@ -15,14 +15,14 @@ let createHouse(posX: int , posY: int, size: int) (world: Node[,]: Node[,]) =
   let upperY = posY + size
 
   Array2D.mapi( fun x y idx ->
-    if x = lowerX && (y >= lowerY && y <= upperY) then Node((x,y), "#", false)
-    elif x = upperX && (y >= lowerY && y <> (lowerY + 2) && y <= upperY) then Node((x,y), "#", false)
-    elif (x >= lowerX && x <= upperX) && (y = lowerY || y = upperY) then Node((x,y), "#", false)
+    if x = lowerX && (y >= lowerY && y <= upperY) then Node((x,y), setTextColor("#", ColorBROWN), false)
+    elif x = upperX && (y >= lowerY && y <> (lowerY + 2) && y <= upperY) then Node((x,y), setTextColor("#", ColorBROWN), false)
+    elif (x >= lowerX && x <= upperX) && (y = lowerY || y = upperY) then Node((x,y), setTextColor("#", ColorBROWN), false)
     else Array2D.get world x y
   ) world
 
-let initWorldArray: Node[,] =
-  let world = Array2D.init worldY worldX (fun x y -> Node((x,y), ".", true))
+let initWorldArray =
+  let world = Array2D.init worldY worldX (fun x y -> Node((x,y), setTextColor(".", ColorGREEN), true))
   world
     |> (fun h -> (createHouse(15, 15, 2)(h)))
     |> (fun h -> (createHouse(5, 5, 4)(h)))
