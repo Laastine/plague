@@ -15,14 +15,14 @@ let createHouse(posX: int , posY: int, size: int) (world: Node[,]: Node[,]) =
   let upperY = posY + size
 
   Array2D.mapi( fun x y idx ->
-    if x = lowerX && (y >= lowerY && y <= upperY) then Node((x,y), setTextColor("#", ColorBROWN), false)
-    elif x = upperX && (y >= lowerY && y <> (lowerY + 2) && y <= upperY) then Node((x,y), setTextColor("#", ColorBROWN), false)
-    elif (x >= lowerX && x <= upperX) && (y = lowerY || y = upperY) then Node((x,y), setTextColor("#", ColorBROWN), false)
+    if x = lowerX && (y >= lowerY && y <= upperY) then Node((x,y), setColorizedText("#", Color.ColorBrown), false)
+    elif x = upperX && (y >= lowerY && y <> (lowerY + 2) && y <= upperY) then Node((x,y), setColorizedText("#", Color.ColorBrown), false)
+    elif (x >= lowerX && x <= upperX) && (y = lowerY || y = upperY) then Node((x,y), setColorizedText("#", Color.ColorBrown), false)
     else Array2D.get world x y
   ) world
 
 let initWorldArray =
-  let world = Array2D.init worldY worldX (fun x y -> Node((x,y), setTextColor(".", ColorGREEN), true))
+  let world = Array2D.init worldY worldX (fun x y -> Node((x,y), setColorizedText(".", Color.ColorGreen), true))
   world
     |> (fun h -> (createHouse(15, 15, 2)(h)))
     |> (fun h -> (createHouse(5, 5, 4)(h)))

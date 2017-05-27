@@ -5,14 +5,14 @@ let worldY = 30
 
 let initialPlayerPos = (10, 20)
 
-let ColorRED = "\x1b[31m"
-let ColorGREEN = "\x1b[32m"
-let ColorYELLOW = "\x1b[33m"
-let ColorBLUE = "\x1b[34m"
-let ColorMAGENTA = "\x1b[35m"
-let ColorBROWN = "\x1b[38;2;139;69;19m"
-let ColorRESET = "\x1b[0m"
-
-
-let setTextColor(text: string, color: string) =
-  color + text + "\x1b[0m"
+[<AbstractClass; Sealed>]
+type Color =
+  static member ColorRed = "\x1b[31m"
+  static member ColorGreen = "\x1b[32m"
+  static member ColorYellow = "\x1b[33m"
+  static member ColorBlue = "\x1b[34m"
+  static member ColorMagneta = "\x1b[35m"
+  static member ColorBrown = "\x1b[38;2;139;69;19m"
+  static member ColorReset = "\x1b[0m"
+let  setColorizedText(text: string, color: string) =
+    color + text + Color.ColorReset
