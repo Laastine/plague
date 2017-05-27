@@ -30,11 +30,13 @@ let initWorldArray =
     |> (fun h -> (createHouse(7, 35, 6)(h)))
 
 let renderWorld(world: Node[,], playerPos: int*int) =
+  let isEdge(y: int): bool = (y+1) % worldX = 0
+  let isSamePos(x: int, y: int, playerPos: int*int): bool = x = (fst playerPos) && y = (snd playerPos)
   world
     |> Array2D.mapi (fun x y idx ->
-      if x = (fst playerPos) && y = (snd playerPos)
-      then printf "@" elif (y+1) % worldX = 0
-      then printfn "%s" idx.value
+      if isSamePos(x, y, playerPos) && isEdge(y) then printfn "@"
+      elif isSamePos(x, y, playerPos) && not (isEdge(y)) then printf "@"
+      elif isEdge(y) then printfn "%s" idx.value
       else printf "%s" idx.value)
 
 let render(initWorldArray, playerPos: int*int) =
@@ -44,7 +46,7 @@ let render(initWorldArray, playerPos: int*int) =
 let rec inputHandler(playerPos: int*int) =
   render(initWorldArray, playerPos)
   let key = Console.ReadKey().KeyChar
-  logger.info (sprintf "Key: %c" key)
+  logger.info (sprintf "Key: %c %A" key playerPos)
   let newPlayerPos = movementInput(key, playerPos, initWorldArray)
   render(initWorldArray, newPlayerPos)
   logger.flush()
