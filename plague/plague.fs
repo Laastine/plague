@@ -24,10 +24,10 @@ let createHouse(posX: int , posY: int, size: int) (world: Node[,]) =
 let initWorldArray =
   let world = Array2D.init worldY worldX (fun x y -> Node((x,y), ".", true))
   world
-    |> (fun x -> (createHouse(15, 15, 2)(x)))
-    |> (fun x -> (createHouse(5, 5, 4)(x)))
-    |> (fun x -> (createHouse(25, 25, 4)(x)))
-    |> (fun x -> (createHouse(7, 35, 6)(x)))
+    |> (fun h -> (createHouse(15, 15, 2)(h)))
+    |> (fun h -> (createHouse(5, 5, 4)(h)))
+    |> (fun h -> (createHouse(25, 25, 4)(h)))
+    |> (fun h -> (createHouse(7, 35, 6)(h)))
 
 let renderWorld(world: Node[,], playerPos: int*int) =
   world
