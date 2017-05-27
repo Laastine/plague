@@ -8,7 +8,11 @@ ASCII roguelike written in F#. Nothing interesting to see here yet.
 - [x] basic movement
 - [x] Houses/walls
 - [x] File logger
-- [ ] diagonal movement
+- [ ] Diagonal movement
+- [ ] Dynamic world
+- [ ] Critters
+- [ ] Path finding
+- [ ] Line of sight
 
 ## Requirements
 - Mono
