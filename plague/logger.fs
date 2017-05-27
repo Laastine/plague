@@ -8,7 +8,7 @@ type private Message =
   | Error   of string
   with
     static member toString logMessage =
-      let d = DateTime.Now.ToLongTimeString()
+      let d = DateTime.Now.ToString("MM-dd-yyyy HH:ss")
       match logMessage with
       | Info    m -> m |> sprintf "%s INFO:%s" d
       | Error   m -> m |> sprintf "%s ERROR:%s" d
