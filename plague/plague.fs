@@ -4,12 +4,12 @@ open System
 open LogAgent
 open Node
 
-let worldX = 30
-let worldY = 60
+let worldX = 60
+let worldY = 30
 
-let initialPlayerPos = (5, 10)
+let initialPlayerPos = (28, 58)
 
-let initWorldArray = Array2D.init worldX worldY (fun x y -> new Node((x,y), ".", true))
+let initWorldArray = Array2D.init worldY worldX (fun x y -> new Node((x,y), ".", true))
 
 let logger = new LogAgent(@"./log.txt")
 
@@ -17,13 +17,13 @@ let renderWorld(world: Node[,], playerPos: int*int) =
   world
     |> Array2D.mapi (fun x y idx ->
       if x = (fst playerPos) && y = (snd playerPos)
-      then printf "@" elif (y+1) % worldY = 0
+      then printf "@" elif (y+1) % worldX = 0
       then printfn "%s" idx.value
       else printf "%s" idx.value)
 
 let isLegalMove(input: int, isVerticalAxel: bool): bool =
-  if isVerticalAxel then input > -1 && input <= worldY
-  else input > -1 && input <= (worldX+1)
+  if isVerticalAxel then input > -1 && input < worldX
+  else input > -1 && input <= (worldY-1)
 
 let movementInput(keyChar: char, playerPos: int * int) =
   let (posX, posY) = playerPos
