@@ -21,24 +21,32 @@ let renderWorld(world: Node[,], playerPos: int*int) =
       then printfn "%s" idx.value
       else printf "%s" idx.value)
 
-let isLegalMove(input: int, isVerticalAxel: bool): bool =
+let isWorldsEdge(input: int, isVerticalAxel: bool): bool =
   if isVerticalAxel then input > -1 && input < worldX
   else input > -1 && input <= (worldY-1)
 
-let movementInput(keyChar: char, playerPos: int * int) =
+let isWall(intendedMove: int*int, world: Node[,]): bool =
+  let node = Array2D.get world (fst intendedMove) (snd intendedMove)
+  node.isPassable
+
+let movementInput(keyChar: char, playerPos: int * int, world: Node[,]) =
   let (posX, posY) = playerPos
   match keyChar with
     | 'a' ->
-              if isLegalMove((posY-1), true) then (posX, (posY-1))
+              let intendedMove = (posX, (posY-1))
+              if isWorldsEdge((posY-1), true) && isWall(intendedMove, world) then intendedMove
               else playerPos
     | 'd' ->
-              if isLegalMove((posY+1), true) then ((posX), (posY+1))
+              let intendedMove = ((posX), (posY+1))
+              if isWorldsEdge((posY+1), true) && isWall(intendedMove, world) then intendedMove
               else playerPos
     | 'w' ->
-              if isLegalMove(posX-1, false) then ((posX-1), posY)
+              let intendedMove = ((posX-1), posY)
+              if isWorldsEdge(posX-1, false) && isWall(intendedMove, world) then intendedMove
               else playerPos
     | 's' ->
-              if isLegalMove(posX+1, false) then ((posX+1), (posY))
+              let intendedMove = ((posX+1), (posY))
+              if isWorldsEdge(posX+1, false) && isWall(intendedMove, world) then intendedMove
               else playerPos
     | 'q' ->
             logger.info "Exit Plague"
@@ -56,7 +64,7 @@ let rec inputHandler(playerPos: int*int) =
   render(initWorldArray, playerPos)
   let key = Console.ReadKey().KeyChar
   logger.info (sprintf "Key: %c" key)
-  let newPlayerPos = movementInput(key, playerPos)
+  let newPlayerPos = movementInput(key, playerPos, initWorldArray)
   render(initWorldArray, newPlayerPos)
   logger.flush()
   inputHandler newPlayerPos
