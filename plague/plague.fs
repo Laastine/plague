@@ -22,9 +22,8 @@ let renderWorld(world: Node[,], playerPos: int*int) =
       else printf "%s" idx.value)
 
 let isLegalMove(input: int, isVerticalAxel: bool): bool =
-  let i = input+1
-  if isVerticalAxel then i > 0 && i <= worldY
-  else i > 0 && i <= worldX
+  if isVerticalAxel then input > -1 && input <= worldY
+  else input > -1 && input <= (worldX+1)
 
 let movementInput(keyChar: char, playerPos: int * int) =
   let (posX, posY) = playerPos
