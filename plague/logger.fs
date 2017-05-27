@@ -1,4 +1,4 @@
-module LogAgent
+module Logger
 
 open System
 open System.IO

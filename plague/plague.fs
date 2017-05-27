@@ -3,7 +3,7 @@ module Plague
 open System
 
 open Config
-open LogAgent
+open Logger
 open Node
 open Movement
 

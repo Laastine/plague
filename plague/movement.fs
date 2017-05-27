@@ -1,7 +1,7 @@
 module Movement
 
 open Config
-open LogAgent
+open Logger
 open Node
 open Pathfinding
 

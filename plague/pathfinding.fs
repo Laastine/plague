@@ -1,5 +1,6 @@
 module Pathfinding
 
+open Logger
 open Config
 open Node
 
