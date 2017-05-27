@@ -3,14 +3,11 @@ module Movement
 open Config
 open LogAgent
 open Node
+open Pathfinding
 
 let isWorldsEdge(input: int, isVerticalAxel: bool): bool =
   if isVerticalAxel then input > -1 && input < worldX
   else input > -1 && input <= (worldY-1)
-
-let isWall(intendedMove: int*int, world: Node[,]): bool =
-  let node = Array2D.get world (fst intendedMove) (snd intendedMove)
-  node.isPassable
 
 let movementInput(keyChar: char, playerPos: int * int, world: Node[,]): int*int =
   let (posX, posY) = playerPos

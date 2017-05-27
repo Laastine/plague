@@ -45,6 +45,7 @@
     <Compile Include="config.fs"/>
     <Compile Include="logger.fs" />
     <Compile Include="node.fs" />
+    <Compile Include="pathfinding.fs"/>
     <Compile Include="movement.fs"/>
     <Compile Include="plague.fs" />
     <None Include="App.config" />
