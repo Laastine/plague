@@ -9,7 +9,23 @@ let worldY = 30
 
 let initialPlayerPos = (28, 58)
 
-let initWorldArray = Array2D.init worldY worldX (fun x y -> new Node((x,y), ".", true))
+let createHouse(posX:int , posY:int, size: int, world: Node[,]) =
+  
+  let lowerX = posX - 1;
+  let upperX = posX + size;
+  
+  let lowerY = posY - 1;
+  let upperY = posY + size;
+
+  Array2D.mapi( fun x y idx ->
+    if x = lowerX && (y >= lowerY && y <= upperY) then new Node((x,y), "#", false)
+    elif x = upperX && (y >= lowerY && y <> (lowerY + 2) && y <= upperY) then new Node((x,y), "#", false)
+    elif (x >= lowerX && x <= upperX) && (y = lowerY || y = upperY) then new Node((x,y), "#", false)
+    else new Node((x,y), ".", true)
+  ) world
+
+let initWorldArray = 
+  createHouse(3, 3, 5, Array2D.init worldY worldX (fun x y -> new Node((x,y), ".", true)))
 
 let logger = new LogAgent(@"./log.txt")
 
