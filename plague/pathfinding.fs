@@ -24,11 +24,20 @@ let pythagora(a: int*int, b: int*int): float =
   let yExp = float(pown (ay - by) 2)
   sqrt(xExp + yExp)
 
+let convertList(inputList: List<int*int*float>): List<int*int> =
+  let rec recur(list: List<int*int*float>, acc: List<int*int>): List<int*int> =
+    match list with
+    | [] -> acc
+    | head::tail ->
+                      let (x, y, _) = head
+                      recur(tail, (x,y)::acc)
+  recur(inputList, [])
+
 let shortestPath(startPos: int*int, endPos: int*int, world: Node[,]): List<int*int> =
-  let rec recur(startPoint: int*int, endPoint: int*int, weight: float, acc: List<int*int>): List<int*int> =
+  let rec recur(startPoint: int*int, endPoint: int*int, weight: float, acc: List<int*int*float>): List<int*int> =
     let (startX, startY) = startPoint
     let (endX, endY) = endPoint
-    if isSamePos(startX, startY, endPoint) then acc |> List.rev
+    if isSamePos(startX, startY, endPoint) then convertList(acc)
     else
       let possibleRoute = [(startX+1, startY); (startX-1, startY); (startX, startY+1); (startX, startY-1)]
                             |> List.filter (fun m -> isWall(m, world))
@@ -37,5 +46,7 @@ let shortestPath(startPos: int*int, endPos: int*int, world: Node[,]): List<int*i
         let best = possibleRoute |> List.minBy (fun start -> pythagora(start, endPoint))
         logger.info (sprintf "MONSTER %A" best)
         let newWeight = pythagora(distance(best, endPoint), endPoint)
-        recur(best, endPoint, weight+newWeight, best::acc)
+        let newWithWeight = ((fst best), (snd best), (newWeight))
+        logger.info (sprintf "newWithWeight %A" newWithWeight)
+        recur(best, endPoint, weight+newWeight, newWithWeight::acc)
   recur(startPos, endPos, 0.0, [])
