@@ -24,29 +24,24 @@ let pythagora(a: int*int, b: int*int): float =
   let yExp = float(pown (ay - by) 2)
   sqrt(xExp + yExp)
 
-let convertList(inputList: List<int*int*float>): List<int*int> =
-  let rec recur(list: List<int*int*float>, acc: List<int*int>): List<int*int> =
-    match list with
-    | [] -> acc
-    | head::tail ->
-                      let (x, y, _) = head
-                      recur(tail, (x,y)::acc)
-  recur(inputList, [])
+let isNotAlreadyVisited(node: int*int, list: List<int*int>): bool =
+  list.IsEmpty || not (list |> List.exists ((=) node))
 
 let shortestPath(startPos: int*int, endPos: int*int, world: Node[,]): List<int*int> =
-  let rec recur(startPoint: int*int, endPoint: int*int, weight: float, acc: List<int*int*float>): List<int*int> =
+  let rec recur(startPoint: int*int, endPoint: int*int, weight: float, visited: List<int*int>, acc: List<int*int>): List<int*int> =
     let (startX, startY) = startPoint
     let (endX, endY) = endPoint
-    if isSamePos(startX, startY, endPoint) then convertList(acc)
+    if isSamePos(startX, startY, endPoint) then acc |> List.rev
     else
       let possibleRoute = [(startX+1, startY); (startX-1, startY); (startX, startY+1); (startX, startY-1)]
                             |> List.filter (fun m -> isWall(m, world))
-      if (possibleRoute |> List.isEmpty) then failwith "No routes"
+                            |> List.filter (fun n -> isNotAlreadyVisited(n, visited))
+      if (possibleRoute |> List.isEmpty) then failwith "No routes"  //Failed to resolve path
       else
         let best = possibleRoute |> List.minBy (fun start -> pythagora(start, endPoint))
-        logger.info (sprintf "MONSTER %A" best)
         let newWeight = pythagora(distance(best, endPoint), endPoint)
-        let newWithWeight = ((fst best), (snd best), (newWeight))
-        logger.info (sprintf "newWithWeight %A" newWithWeight)
-        recur(best, endPoint, weight+newWeight, newWithWeight::acc)
-  recur(startPos, endPos, 0.0, [])
+        let accHead = if acc.IsEmpty then (startX, startY) else acc.Head
+        logger.info (sprintf "route: %A" acc)
+        recur(best, endPoint, weight+newWeight, best::visited, best::acc)
+
+  recur(startPos, endPos, 0.0, [], [])
