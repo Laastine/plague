@@ -43,7 +43,7 @@ let renderWorld(world: Node[,], playerPos: int*int, monsterPos: int*int) =
   world
     |> Array2D.mapi (fun x y idx ->
       if isSamePos(x, y, monsterPos) && isEdge(y) then printf "X"
-      if isSamePos(x, y, monsterPos) && not (isEdge(y)) then printf "X"
+      elif isSamePos(x, y, monsterPos) && not (isEdge(y)) then printf "X"
       elif isSamePos(x, y, playerPos) && isEdge(y) then printfn "@"
       elif isSamePos(x, y, playerPos) && not (isEdge(y)) then printf "@"
       elif isEdge(y) then printfn "%s" idx.value
