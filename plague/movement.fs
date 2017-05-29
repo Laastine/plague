@@ -14,19 +14,19 @@ let movementInput(keyChar: char, playerPos: int * int, world: Node[,]): int*int 
   match keyChar with
     | 'a' ->
               let intendedMove = (posX, (posY-1))
-              if isWorldsEdge((posY-1), true) && isWall(intendedMove, world) then intendedMove
+              if isWorldsEdge((posY-1), true) && isNotWall(intendedMove, world) then intendedMove
               else playerPos
     | 'd' ->
               let intendedMove = ((posX), (posY+1))
-              if isWorldsEdge((posY+1), true) && isWall(intendedMove, world) then intendedMove
+              if isWorldsEdge((posY+1), true) && isNotWall(intendedMove, world) then intendedMove
               else playerPos
     | 'w' ->
               let intendedMove = ((posX-1), posY)
-              if isWorldsEdge(posX-1, false) && isWall(intendedMove, world) then intendedMove
+              if isWorldsEdge(posX-1, false) && isNotWall(intendedMove, world) then intendedMove
               else playerPos
     | 's' ->
               let intendedMove = ((posX+1), (posY))
-              if isWorldsEdge(posX+1, false) && isWall(intendedMove, world) then intendedMove
+              if isWorldsEdge(posX+1, false) && isNotWall(intendedMove, world) then intendedMove
               else playerPos
     | 'q' ->
             logger.info "Exit Plague"
@@ -39,4 +39,4 @@ let movementInput(keyChar: char, playerPos: int * int, world: Node[,]): int*int 
 let moveMonster(playerPos: int * int, monsterPos: int*int, world: Node[,]): int*int =
   let path = shortestPath(monsterPos, playerPos, world)
   if path |> List.isEmpty then monsterPos
-  else path |> List.head
+  else path.Head
