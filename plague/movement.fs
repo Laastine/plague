@@ -38,5 +38,6 @@ let movementInput(keyChar: char, playerPos: int * int, world: Node[,]): int*int 
 
 let moveMonster(playerPos: int * int, monsterPos: int*int, world: Node[,]): int*int =
   let path = shortestPath(monsterPos, playerPos, world)
+  logger.info (sprintf "path %A" path)
   if path |> List.isEmpty then monsterPos
   else path.Head

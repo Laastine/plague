@@ -23,7 +23,7 @@ let createHouse(posX: int , posY: int, size: int)(world: Node[,]: Node[,]) =
   ) world
 
 let createPond(posX: int, posY: int, size: int)(world: Node[,]: Node[,]) =
-  let isWithinCircle(x,y) = pythagora(distance((posX, posY), (x,y)), (x,y)) <= float (size)
+  let isWithinCircle(x,y) = pythagora(distanceXY((posX, posY), (x,y)), (x,y)) <= float (size)
   Array2D.mapi(fun x y i ->
                 if isWithinCircle(x,y) then Node((x,y), setColorizedText("~", Color.ColorBlue), false)
                 else Array2D.get world x y) world
@@ -57,6 +57,7 @@ let rec inputHandler(playerPos: int*int, monsterPos: int*int) =
   let newPlayerPos = movementInput(key, playerPos, initWorldArray)
   let newMonsterPos = moveMonster(newPlayerPos, monsterPos, initWorldArray)
   renderWorld(initWorldArray, newPlayerPos, newMonsterPos)
+  logger.info (sprintf "player: %A->%A, monster: %A->%A" playerPos newPlayerPos monsterPos newMonsterPos)
   logger.flush()
   inputHandler(newPlayerPos, newMonsterPos)
 
