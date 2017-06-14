@@ -10,25 +10,19 @@ let isNotWall(intendedMove: int*int, world: Node[,]): bool =
   let (x, y) = intendedMove
   x >= 0 && y >= 0 && x < worldY && y < worldX && (Array2D.get world x y).isPassable
 
-let distance(a: int*int, b: int*int): float =
-  let (ax, ay) = a
-  let (bx, by) = b
-  let distX = abs (ax - bx)
-  let distY = abs (ay - by)
-  float(distX + distY)
+let distance(a: int*int, b: int*int): int =
+  let distX = abs ((fst a) - (fst b))
+  let distY = abs ((snd a) - (snd b))
+  distX + distY
 
-let distanceXY(a: int*int, b: int*int): int*int =
-  let (ax, ay) = a
-  let (bx, by) = b
-  let distX = abs (ax - bx)
-  let distY = abs (ay - by)
+let positionVector(a: int*int, b: int*int): int*int =
+  let distX = abs ((fst a) - (fst b))
+  let distY = abs ((snd a) - (snd b))
   (distX, distY)
 
 let pythagora(a: int*int, b: int*int): float =
-  let (ax, ay) = a
-  let (bx, by) = b
-  let xExp = float(pown (ax - bx) 2)
-  let yExp = float(pown (ay - by) 2)
+  let xExp = float(pown ((fst a) - (fst b)) 2)
+  let yExp = float(pown ((snd a) - (snd b)) 2)
   sqrt(xExp + yExp)
 
 let isNotAlreadyVisited(node: int*int, list: List<int*int>): bool = not (list |> List.exists ((=) node))

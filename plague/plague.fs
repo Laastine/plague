@@ -23,7 +23,7 @@ let createHouse(posX: int , posY: int, size: int)(world: Node[,]: Node[,]) =
   ) world
 
 let createPond(posX: int, posY: int, size: int)(world: Node[,]: Node[,]) =
-  let isWithinCircle(x,y) = pythagora(distanceXY((posX, posY), (x,y)), (x,y)) <= float (size)
+  let isWithinCircle(x,y) = pythagora(positionVector((posX, posY), (x,y)), (x,y)) <= float (size)
   Array2D.mapi(fun x y i ->
                 if isWithinCircle(x,y) then Node((x,y), setColorizedText("~", Color.ColorBlue), false)
                 else Array2D.get world x y) world
