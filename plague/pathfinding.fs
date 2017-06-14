@@ -3,6 +3,24 @@ module Pathfinding
 open Logger
 open Config
 open Node
+open System.Collections.Generic
+
+type Cost =
+  | Blocked
+  | Cost of cost:int
+
+type GridNode = {
+  x: int
+  y: int
+  cost: Cost
+}
+
+type Graph = {
+  nodes: Dictionary<(int * int), GridNode>
+  parent: Dictionary<GridNode, GridNode>
+  pathCost: Dictionary<GridNode, int>
+  path: GridNode list
+}
 
 let isSamePos(x: int, y: int, playerPos: int*int): bool = x = (fst playerPos) && y = (snd playerPos)
 
@@ -25,63 +43,57 @@ let pythagora(a: int*int, b: int*int): float =
   let yExp = float(pown ((snd a) - (snd b)) 2)
   sqrt(xExp + yExp)
 
-let isNotAlreadyVisited(node: int*int, list: List<int*int>): bool = not (list |> List.exists ((=) node))
+let directions = [{ x = 1; y = 0; cost = Blocked }; { x = 0; y = -1; cost = Blocked }; {x = -1; y = 0; cost = Blocked }; {x = 0; y = 1; cost = Blocked }]
 
-type GridNode = struct
-  val pos: int*int
-  val score: float
-  val heuristic: float
-  val parent: int*int
-  val value: float
-  new (pos, parent, score, heuristic, value) =
-    {pos = pos; parent = parent; score = score; heuristic = heuristic; value = value;}
-end
+let cost(nodeB: GridNode): int =
+  match nodeB.cost with
+  | Cost(cost) -> cost
+  | Blocked -> failwith (sprintf "No cost defined on %A" nodeB)
 
-let gridNodeToPosList(inputList: List<GridNode>): List<int*int> =
-  let rec recur(inputList: List<GridNode>, acc: List<int*int>) =
-    match inputList with
-    | [] -> acc |> List.rev
-    | head::tail -> recur(tail, (head.pos)::acc)
-  recur(inputList, [])
+let childNodes(graph: Graph, node: GridNode): GridNode list =
+  directions
+    |> List.map (fun direction ->
+      let neighborX = node.x + direction.x
+      let neighborY = node.y + direction.y
+      let (neighborExists, child) = graph.nodes.TryGetValue((neighborX, neighborY))
+      if neighborExists && child.cost <> Blocked
+      then Some child
+      else None)
+    |> List.choose id
 
-let posToGridNode(node: int*int, parent: int*int, head: GridNode, endPoint: int*int): GridNode =
-  let heuristic = distance(head.pos, endPoint)
-  let score = head.score + 1.0
-  let value = score + heuristic
-  GridNode(node, parent, score, heuristic, value)
+let mutable(frontier: (GridNode * int) list) = []
 
-let reconstructRoute(route: List<GridNode>, startPoint: int*int, endPoint: int*int): List<int*int> =
-  let rec recur(routePath: List<GridNode>, acc: List<int*int>): List<int*int> =
-    match routePath with
-    | [] -> acc.Tail
-    | head::tail ->
-                    if head.pos = startPoint then acc
-                    else recur(tail, (head.parent)::acc)
-  recur(route, [])
+let enqueue(head: (GridNode * int)) = frontier <- head::frontier
 
-let shortestPath(startPos: int*int, endPos: int*int, world: Node[,]): List<int*int> =
-  let value = distance(startPos, endPos)+1.0 + distance(startPos, endPos)
-  let openList = [GridNode(startPos, startPos, distance(startPos, endPos)+1.0, distance(startPos, endPos), value)]
-  let closedList = []
+let dequeue() =
+  let sortedQueue = frontier |> List.sortBy (fun (_, prio) -> prio)
+  frontier <- sortedQueue.Tail
+  sortedQueue.Head
 
-  let rec recur(startPoint: int*int, endPoint: int*int, visited: List<GridNode>, openList: List<GridNode>, acc: List<GridNode>): List<int*int> =
-    match openList with
-    | [] -> gridNodeToPosList(openList)
-    | openList ->
-            let head = openList |> List.minBy (fun x -> x.value)
-            let newVisitedList = head::visited
-            let (startX, startY) = head.pos
-            if isSamePos(startX, startY, endPoint) then reconstructRoute(head::acc, startPoint, endPoint)
-            else
-              let possibleRoutes = [(startX+1, startY); (startX-1, startY); (startX, startY+1); (startX, startY-1)]
-                                    |> List.filter (fun n -> isNotAlreadyVisited(n, gridNodeToPosList(visited)) && isNotWall(n, world))
-                                    |> List.map (fun n -> posToGridNode(n, head.pos, head, endPos))
-              let newScore = if possibleRoutes.IsEmpty then [] else [possibleRoutes |> List.minBy (fun r -> r.value)]
-              let tail = openList |> List.filter ((<>) head)
-              if not newScore.IsEmpty &&
-                (head.value + 1.0) >= newScore.Head.value &&
-                isNotAlreadyVisited(head.pos, gridNodeToPosList(visited)) then
-                recur(startPos, endPos, newVisitedList, List.concat(seq [possibleRoutes; tail]), newScore.Head::acc)
-              else
-                recur(startPos, endPos, newVisitedList, List.concat(seq [possibleRoutes; tail]), acc)
-  recur(startPos, endPos, closedList, openList, [])
+let shortestPath(graph: Graph, startPoint: GridNode, endPoint: GridNode, heuristic) =
+  enqueue(startPoint, cost(startPoint))
+  graph.parent.[startPoint] <- startPoint
+  graph.pathCost.[startPoint] <- cost(startPoint)
+
+  let mutable isFound = false
+  while frontier.Length > 0 && (not isFound) do
+    let (head, _) = dequeue()
+    if head = endPoint then isFound <- true
+    if (not isFound) then
+      childNodes(graph, head)
+        |> List.iter (fun child ->
+          let newCost = graph.pathCost.[head] + cost(child)
+          if (not (graph.pathCost.ContainsKey(child))) || newCost < graph.pathCost.[child] then
+            graph.pathCost.[child] <- newCost
+            let prio = newCost + heuristic((child.x, child.y), (endPoint.x, endPoint.y))
+            enqueue(child, prio)
+            graph.parent.[child] <- head)
+  graph
+
+let reconstructPath(parent : Dictionary<GridNode, GridNode>, startPoint: GridNode, endPoint: GridNode): GridNode list =
+  let mutable head = endPoint
+  let mutable path = [head]
+  while head <> startPoint do
+    head <- parent.[head]
+    path <- head::path
+  path

@@ -4,6 +4,7 @@ open Config
 open Logger
 open Node
 open Pathfinding
+open System.Collections.Generic
 
 let isWorldsEdge(input: int, isVerticalAxel: bool): bool =
   if isVerticalAxel then input > -1 && input < worldX
@@ -36,8 +37,23 @@ let movementInput(keyChar: char, playerPos: int * int, world: Node[,]): int*int 
             logger.info "Unknown key pressed"
             ((fst playerPos), (snd playerPos))
 
+let convertNodesToGrap(world: Node[,]) =
+  let graphNodes = Dictionary<(int*int), GridNode>()
+  world |> Array2D.iteri (fun x y idx ->
+    if isNotWall((x,y), world) then graphNodes.Add((x,y), {x=x; y=y; cost=Cost(1)}) |> ignore
+    else graphNodes.Add((x,y), {x=x; y=y; cost=Blocked}) |> ignore) |> ignore
+  {
+    nodes = graphNodes
+    parent = Dictionary<GridNode, GridNode>()
+    pathCost = Dictionary<GridNode, int>()
+    path = []
+  }
+
 let moveMonster(playerPos: int * int, monsterPos: int*int, world: Node[,]): int*int =
-  let path = shortestPath(monsterPos, playerPos, world)
-  logger.info (sprintf "path %A" path)
+  let graphWorld = convertNodesToGrap(world)
+  let startPoint = {x=(fst monsterPos); y=(snd monsterPos); cost=Cost(1)}
+  let endPoint = {x=(fst playerPos); y=(snd playerPos); cost=Cost(1)}
+  let graph = shortestPath(graphWorld, startPoint, endPoint, distance)
+  let path = reconstructPath(graph.parent, startPoint, endPoint) |> List.map(fun e -> (e.x, e.y)) |> List.tail
   if path |> List.isEmpty then monsterPos
   else path.Head
