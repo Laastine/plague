@@ -37,25 +37,30 @@ let initWorldArray =
     |> (fun h -> (createHouse(7, 35, 6)(h)))
     |> (fun w -> (createPond(42, 15, 8)(w)))
 
-let renderWorld(world: Node[,], playerPos: int*int, monsterPos: int*int) =
+let initMonsters: List<int*int> =
+  let rnd = System.Random()
+  List.init 1 (fun _ -> (rnd.Next(1, 4), rnd.Next(1, 4)))
+
+let renderWorld(world: Node[,], playerPos: int*int, monsterPos: (int*int) list) =
   System.Console.Clear()
   let isEdge(y: int): bool = (y+1) % worldX = 0
   world
     |> Array2D.mapi (fun x y idx ->
-      if isSamePos(x, y, monsterPos) && isEdge(y) then printf "X"
-      elif isSamePos(x, y, monsterPos) && not (isEdge(y)) then printf "X"
-      elif isSamePos(x, y, playerPos) && isEdge(y) then printfn "@"
-      elif isSamePos(x, y, playerPos) && not (isEdge(y)) then printf "@"
+      if isSamePos((x, y), monsterPos) && isEdge(y) then printf "X"
+      elif isSamePos((x, y), monsterPos) && not (isEdge(y)) then printf "X"
+      elif isSamePos((x, y), [playerPos]) && isEdge(y) then printfn "@"
+      elif isSamePos((x, y), [playerPos]) && not (isEdge(y)) then printf "@"
       elif isEdge(y) then printfn "%s" idx.value
       else printf "%s" idx.value)
      |> ignore
 
-let rec inputHandler(playerPos: int*int, monsterPos: int*int) =
+let rec inputHandler(playerPos: int*int, monsterPos: (int*int) list) =
   renderWorld(initWorldArray, playerPos, monsterPos)
   let key = Console.ReadKey().KeyChar
   logger.info (sprintf "Key: %c %A" key playerPos)
   let newPlayerPos = movementInput(key, playerPos, initWorldArray)
-  let newMonsterPos = moveMonster(newPlayerPos, monsterPos, initWorldArray)
+  let newMonsterPos = monsterPos |> List.map (fun e -> moveMonster(newPlayerPos, e, initWorldArray))
+  logger.info (sprintf "foo: %A" newMonsterPos)
   renderWorld(initWorldArray, newPlayerPos, newMonsterPos)
   logger.info (sprintf "player: %A->%A, monster: %A->%A" playerPos newPlayerPos monsterPos newMonsterPos)
   logger.flush()
@@ -64,5 +69,5 @@ let rec inputHandler(playerPos: int*int, monsterPos: int*int) =
 [<EntryPoint>]
 let main argv =
   logger.info "Plague started"
-  inputHandler(initialPlayerPos, monsterPos)
+  inputHandler(initialPlayerPos, initMonsters)
   0

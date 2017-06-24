@@ -49,11 +49,13 @@ let convertNodesToGrap(world: Node[,]) =
     path = []
   }
 
-let moveMonster(playerPos: int * int, monsterPos: int*int, world: Node[,]): int*int =
+let moveMonster(playerPos: int*int, monsterPos: int*int, world: Node[,]): int*int =
   let graphWorld = convertNodesToGrap(world)
   let startPoint = {x=(fst monsterPos); y=(snd monsterPos); cost=Cost(1)}
   let endPoint = {x=(fst playerPos); y=(snd playerPos); cost=Cost(1)}
-  let graph = shortestPath(graphWorld, startPoint, endPoint, distance)
+  logger.info (sprintf "%A->%A" startPoint endPoint)
+  logger.flush()
+  let graph = shortestPath(graphWorld, startPoint, endPoint, distanceXY)
   let path = reconstructPath(graph.parent, startPoint, endPoint) |> List.map(fun e -> (e.x, e.y)) |> List.tail
   if path |> List.isEmpty then monsterPos
   else path.Head

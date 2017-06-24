@@ -19,16 +19,17 @@ type Graph = {
   nodes: Dictionary<(int * int), GridNode>
   parent: Dictionary<GridNode, GridNode>
   pathCost: Dictionary<GridNode, int>
-  path: GridNode list
+  path: list<GridNode>
 }
 
-let isSamePos(x: int, y: int, playerPos: int*int): bool = x = (fst playerPos) && y = (snd playerPos)
+let isSamePos(pos: int*int, inputList: list<(int*int)>): bool =
+  inputList |> List.exists (fun e -> (fst e) = (fst pos) && (snd e) = (snd pos))
 
 let isNotWall(intendedMove: int*int, world: Node[,]): bool =
   let (x, y) = intendedMove
   x >= 0 && y >= 0 && x < worldY && y < worldX && (Array2D.get world x y).isPassable
 
-let distance(a: int*int, b: int*int): int =
+let distanceXY(a: int*int, b: int*int): int =
   let distX = abs ((fst a) - (fst b))
   let distY = abs ((snd a) - (snd b))
   distX + distY
@@ -50,18 +51,17 @@ let cost(nodeB: GridNode): int =
   | Cost(cost) -> cost
   | Blocked -> failwith (sprintf "No cost defined on %A" nodeB)
 
-let childNodes(graph: Graph, node: GridNode): GridNode list =
+let childNodes(graph: Graph, node: GridNode): list<GridNode> =
   directions
     |> List.map (fun direction ->
-      let neighborX = node.x + direction.x
-      let neighborY = node.y + direction.y
-      let (neighborExists, child) = graph.nodes.TryGetValue((neighborX, neighborY))
-      if neighborExists && child.cost <> Blocked
-      then Some child
-      else None)
+                        let neighborX = node.x + direction.x
+                        let neighborY = node.y + direction.y
+                        let (neighborExists, child) = graph.nodes.TryGetValue((neighborX, neighborY))
+                        if neighborExists && child.cost <> Blocked then Some child
+                        else None)
     |> List.choose id
 
-let mutable(frontier: (GridNode * int) list) = []
+let mutable(frontier: list<(GridNode * int)>) = []
 
 let enqueue(head: (GridNode * int)) = frontier <- head::frontier
 
@@ -82,6 +82,8 @@ let shortestPath(graph: Graph, startPoint: GridNode, endPoint: GridNode, heurist
     if (not isFound) then
       childNodes(graph, head)
         |> List.iter (fun child ->
+          logger.info (sprintf "cost: %A, %A" graph.pathCost.Count head)
+          logger.flush()
           let newCost = graph.pathCost.[head] + cost(child)
           if (not (graph.pathCost.ContainsKey(child))) || newCost < graph.pathCost.[child] then
             graph.pathCost.[child] <- newCost
@@ -90,7 +92,7 @@ let shortestPath(graph: Graph, startPoint: GridNode, endPoint: GridNode, heurist
             graph.parent.[child] <- head)
   graph
 
-let reconstructPath(parent : Dictionary<GridNode, GridNode>, startPoint: GridNode, endPoint: GridNode): GridNode list =
+let reconstructPath(parent : Dictionary<GridNode, GridNode>, startPoint: GridNode, endPoint: GridNode): list<GridNode> =
   let mutable head = endPoint
   let mutable path = [head]
   while head <> startPoint do
