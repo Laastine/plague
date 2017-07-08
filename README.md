@@ -2,7 +2,7 @@
 
 ASCII roguelike written in F#. Nothing interesting to see here yet.
 
-![screenshot](http://laastine.kapsi.fi/kuvat/plague.png)
+![screenshot](http://laastine.kapsi.fi/kuvat/plague.png?cache=1)
 
 ## TODO
 
