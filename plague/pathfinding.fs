@@ -76,15 +76,19 @@ let shortestPath(graph: Graph, startPoint: GridNode, endPoint: GridNode, heurist
   graph.pathCost.[startPoint] <- cost(startPoint)
 
   let mutable isFound = false
+  let arbitraryBigNumber = 1000
   while frontier.Length > 0 && (not isFound) do
     let (head, _) = dequeue()
     if head = endPoint then isFound <- true
     if (not isFound) then
       childNodes(graph, head)
         |> List.iter (fun child ->
-          logger.info (sprintf "cost: %A, %A" graph.pathCost.Count head)
           logger.flush()
-          let newCost = graph.pathCost.[head] + cost(child)
+          let (isFound, headVal) = graph.pathCost.TryGetValue(head)
+          let newCost =
+            if isFound then
+              headVal + cost(child)
+            else arbitraryBigNumber + cost(child)
           if (not (graph.pathCost.ContainsKey(child))) || newCost < graph.pathCost.[child] then
             graph.pathCost.[child] <- newCost
             let prio = newCost + heuristic((child.x, child.y), (endPoint.x, endPoint.y))
