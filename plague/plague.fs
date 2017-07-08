@@ -62,9 +62,11 @@ let rec inputHandler(playerPos: int*int, monsterPos: (int*int) list) =
   let newMonsterPos = monsterPos |> List.map (fun e -> moveMonster(newPlayerPos, e, initWorldArray))
   logger.info (sprintf "foo: %A" newMonsterPos)
   renderWorld(initWorldArray, newPlayerPos, newMonsterPos)
-  logger.info (sprintf "player: %A->%A, monster: %A->%A" playerPos newPlayerPos monsterPos newMonsterPos)
-  logger.flush()
-  inputHandler(newPlayerPos, newMonsterPos)
+  if newPlayerPos = newMonsterPos.Head then printfn "Game over"
+  else
+    logger.info (sprintf "player: %A->%A, monster: %A->%A" playerPos newPlayerPos monsterPos newMonsterPos)
+    logger.flush()
+    inputHandler(newPlayerPos, newMonsterPos)
 
 [<EntryPoint>]
 let main argv =
