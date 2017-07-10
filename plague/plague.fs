@@ -39,7 +39,7 @@ let initWorldArray =
 
 let initMonsters: List<int*int> =
   let rnd = System.Random()
-  List.init 3 (fun e -> (rnd.Next(1, 4), rnd.Next(1, 4)))
+  List.init 3 (fun e -> (rnd.Next(1, 4), rnd.Next(1, Config.worldY)))
 
 let renderWorld(world: Node[,], playerPos: int*int, monsterPos: (int*int) list) =
   System.Console.Clear()
