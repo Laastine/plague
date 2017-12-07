@@ -17,16 +17,18 @@ ASCII roguelike written in F#. Nothing interesting to see here yet.
 - [ ] Line of sight
 
 ## Requirements
-- Mono
-- Forge
+- Dotnet Core 2.0
 
 ### Compile & run app
 
 - Compile sources
-`./build.sh`
+`dotnet build`
 
 - Run application
-`mono build/plague.exe`
+`dotnet run`
+
+- Publish executable in Mac OS
+`dotnet publish --framework netcoreapp2.0 --self-contained --runtime osx.10.11-x64 && ./bin/Debug/netcoreapp2.0/osx.10.11-x64/plague`
 
 ## Controls
 
