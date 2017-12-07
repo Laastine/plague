@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="src/config.fs" />
+    <Compile Include="src/logger.fs" />
+    <Compile Include="src/node.fs" />
+    <Compile Include="src/pathfinding.fs" />
+    <Compile Include="src/movement.fs" />
+    <Compile Include="src/plague.fs" />
+  </ItemGroup>
+
+</Project>
